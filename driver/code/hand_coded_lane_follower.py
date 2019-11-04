@@ -26,10 +26,10 @@ status     = 1          #Motor rotation
 forward    = 1          #Motor forward
 backward   = 0          #Motor backward
 
-left_spd   = num_import_int('E_M1:')         #Speed of the car
-right_spd  = num_import_int('E_M2:')         #Speed of the car
-left       = num_import_int('E_T1:')         #Motor Left
-right      = num_import_int('E_T2:')         #Motor Right
+left_spd   = 100        #Speed of the car
+right_spd  = 100         #Speed of the car
+left       = 30         #Motor Left
+right      = 30        #Motor Right
 
 line_pin_right = 35
 line_pin_middle = 36
