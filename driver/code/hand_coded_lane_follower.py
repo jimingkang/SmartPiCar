@@ -23,11 +23,11 @@ def num_import_int(initial):        #Call this function to import data from '.tx
     return n
 
 status     = 1          #Motor rotation
-forward    = 1          #Motor forward
-backward   = 0          #Motor backward
+forward    = 0          #Motor forward
+backward   = 1          #Motor backward
 
-left_spd   = 100        #Speed of the car
-right_spd  = 100         #Speed of the car
+left_spd   = 10        #Speed of the car
+right_spd  = 10         #Speed of the car
 left       = 30         #Motor Left
 right      = 30        #Motor Right
 
