@@ -8,6 +8,9 @@ from traffic_objects import *
 
 _SHOW_IMAGE = False
 
+#jimmy
+import motor
+import turn
 
 class ObjectsOnRoadProcessor(object):
     """
