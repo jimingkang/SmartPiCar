@@ -26,8 +26,8 @@ status     = 1          #Motor rotation
 forward    = 0          #Motor forward
 backward   = 1          #Motor backward
 
-left_spd   = 10        #Speed of the car
-right_spd  = 10         #Speed of the car
+left_spd   = 30        #Speed of the car
+right_spd  = 30         #Speed of the car
 left       = 30         #Motor Left
 right      = 30        #Motor Right
 
@@ -84,10 +84,11 @@ class HandCodedLaneFollower(object):
 
         if self.car is not None:
             
-            turn.turn_ang(self.curr_steering_angle)
+            
 
             motor.motor_left(status, forward,left_spd*spd_ad_2)
             motor.motor_right(status,backward,right_spd*spd_ad_2)
+            turn.turn_ang(self.curr_steering_angle)
             #self.car.front_wheels.turn(self.curr_steering_angle)
             
         curr_heading_image = display_heading_line(frame, self.curr_steering_angle)
