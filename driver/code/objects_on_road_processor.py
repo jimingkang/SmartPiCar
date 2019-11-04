@@ -13,8 +13,8 @@ import RPi.GPIO as GPIO
 import motor
 import turn
 status     = 1          #Motor rotation
-forward    = 0          #Motor forward
-backward   = 1          #Motor backward
+forward    = 1          #Motor forward
+backward   = 0          #Motor backward
 
 left_spd   = 30        #Speed of the car
 right_spd  = 30         #Speed of the car

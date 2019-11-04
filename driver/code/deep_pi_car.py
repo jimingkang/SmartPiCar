@@ -11,8 +11,8 @@ import motor
 import turn
 _SHOW_IMAGE = True
 status     = 1          #Motor rotation
-forward    = 0          #Motor forward
-backward   = 1          #Motor backward
+forward    = 1          #Motor forward
+backward   = 0          #Motor backward
 
 left_spd   = 40        #Speed of the car
 right_spd  = 40        #Speed of the car
@@ -138,9 +138,9 @@ class DeepPiCar(object):
             i += 1
             self.video_orig.write(image_lane)
 
-            image_objs = self.process_objects_on_road(image_objs)
-            self.video_objs.write(image_objs)
-            show_image('Detected Objects', image_objs)
+            #image_objs = self.process_objects_on_road(image_objs)
+            #self.video_objs.write(image_objs)
+            #show_image('Detected Objects', image_objs)
 
             image_lane = self.follow_lane(image_lane)
             self.video_lane.write(image_lane)
