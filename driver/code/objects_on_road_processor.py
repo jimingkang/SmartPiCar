@@ -117,7 +117,7 @@ class ObjectsOnRoadProcessor(object):
         self.speed = speed
         if self.car is not None:
             logging.debug("Actually setting car speed to %d" % speed)
-            self.car.back_wheels.speed = speed
+            #self.car.back_wheels.speed = speed
 
 
 
