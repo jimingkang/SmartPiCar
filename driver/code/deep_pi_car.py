@@ -130,6 +130,7 @@ class DeepPiCar(object):
         #self.back_wheels.speed = speed
         i = 0
         turn.ahead()
+        
         while self.camera.isOpened():
             _, image_lane = self.camera.read()
             image_objs = image_lane.copy()
