@@ -9,6 +9,7 @@ from traffic_objects import *
 _SHOW_IMAGE = False
 
 #jimmy
+import RPi.GPIO as GPIO
 import motor
 import turn
 status     = 1          #Motor rotation
