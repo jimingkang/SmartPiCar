@@ -26,8 +26,8 @@ status     = 1          #Motor rotation
 forward    = 0          #Motor forward
 backward   = 1          #Motor backward
 
-left_spd   = 100        #Speed of the car
-right_spd  = 100         #Speed of the car
+left_spd   = 10        #Speed of the car
+right_spd  = 10         #Speed of the car
 left       = 30         #Motor Left
 right      = 30        #Motor Right
 
@@ -79,6 +79,7 @@ class HandCodedLaneFollower(object):
         self.curr_steering_angle = stabilize_steering_angle(self.curr_steering_angle, new_steering_angle, len(lane_lines))
 
         if self.car is not None:
+            logging.info('curr_steering_angle:'+curr_steering_angle)
             turn.turn_ang(curr_steering_angle)
 
             motor.motor_left(status, forward,left_spd*spd_ad_2)
