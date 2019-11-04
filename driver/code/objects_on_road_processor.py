@@ -67,10 +67,10 @@ class ObjectsOnRoadProcessor(object):
 
     def process_objects_on_road(self, frame):
         # Main entry point of the Road Object Handler
-        logging.debug('Processing objects.................................')
+        logging.debug('Processing Road objects.................................')
         objects, final_frame = self.detect_objects(frame)
         self.control_car(objects)
-        logging.debug('Processing objects END..............................')
+        logging.debug('Processing Road objects END..............................')
 
         return final_frame
 
@@ -117,7 +117,7 @@ class ObjectsOnRoadProcessor(object):
         self.speed = speed
         if self.car is not None:
             logging.debug("Actually setting car speed to %d" % speed)
-            #self.car.back_wheels.speed = speed
+            self.car.speed = speed
 
 
 

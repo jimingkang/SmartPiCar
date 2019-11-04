@@ -71,6 +71,7 @@ class DeepPiCar(object):
         self.tilt_servo.offset = 20  # calibrate servo to center
         self.tilt_servo.write(90)
 
+        self.speed = 5
         logging.debug('Set up back wheels')
         #self.back_wheels = picar.back_wheels.Back_Wheels()
         #self.back_wheels.speed = 0  # Speed Range is 0 (stop) - 100 (fastest)

@@ -59,6 +59,8 @@ class HandCodedLaneFollower(object):
         logging.info('Creating a HandCodedLaneFollower...')
         self.car = car
         self.curr_steering_angle = 90
+        self.spd_ad_1=spd_ad_1
+        self.spd_ad_2=spd_ad_2
 
     def follow_lane(self, frame):
         # Main entry point of the lane follower
@@ -76,10 +78,11 @@ class HandCodedLaneFollower(object):
             return frame
 
         new_steering_angle = compute_steering_angle(frame, lane_lines)
+        logging.info('new_steering_angle:'+new_steering_angle)
         self.curr_steering_angle = stabilize_steering_angle(self.curr_steering_angle, new_steering_angle, len(lane_lines))
 
         if self.car is not None:
-            logging.info('curr_steering_angle:'+curr_steering_angle)
+            
             turn.turn_ang(curr_steering_angle)
 
             motor.motor_left(status, forward,left_spd*spd_ad_2)
