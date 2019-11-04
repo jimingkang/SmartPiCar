@@ -4,8 +4,36 @@ import cv2
 import datetime
 from hand_coded_lane_follower import HandCodedLaneFollower
 from objects_on_road_processor import ObjectsOnRoadProcessor
-
+#jimmy trasnplant from Addeep/server
+import motor
+import turn
 _SHOW_IMAGE = True
+status     = 1          #Motor rotation
+forward    = 1          #Motor forward
+backward   = 0          #Motor backward
+
+left_spd   = num_import_int('E_M1:')         #Speed of the car
+right_spd  = num_import_int('E_M2:')         #Speed of the car
+left       = num_import_int('E_T1:')         #Motor Left
+right      = num_import_int('E_T2:')         #Motor Right
+
+line_pin_right = 35
+line_pin_middle = 36
+line_pin_left = 38
+
+left_R = 15
+left_G = 16
+left_B = 18
+
+right_R = 19
+right_G = 21
+right_B = 22
+
+on  = GPIO.LOW
+off = GPIO.HIGH
+
+spd_ad_1 = 1
+spd_ad_2 = 1
 
 
 class DeepPiCar(object):
@@ -13,6 +41,7 @@ class DeepPiCar(object):
     __INITIAL_SPEED = 0
     __SCREEN_WIDTH = 320
     __SCREEN_HEIGHT = 240
+    
 
     def __init__(self):
         """ Init camera and wheels"""

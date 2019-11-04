@@ -4,6 +4,49 @@ import logging
 import math
 import datetime
 import sys
+#jimmy
+import time
+import motor
+import turn
+import led
+
+def num_import_int(initial):        #Call this function to import data from '.txt' file
+    with open("set.txt") as f:
+        for line in f.readlines():
+            if(line.find(initial) == 0):
+                r=line
+    begin=len(list(initial))
+    snum=r[begin:]
+    n=int(snum)
+    return n
+
+status     = 1          #Motor rotation
+forward    = 1          #Motor forward
+backward   = 0          #Motor backward
+
+left_spd   = num_import_int('E_M1:')         #Speed of the car
+right_spd  = num_import_int('E_M2:')         #Speed of the car
+left       = num_import_int('E_T1:')         #Motor Left
+right      = num_import_int('E_T2:')         #Motor Right
+
+line_pin_right = 35
+line_pin_middle = 36
+line_pin_left = 38
+
+left_R = 15
+left_G = 16
+left_B = 18
+
+right_R = 19
+right_G = 21
+right_B = 22
+
+on  = GPIO.LOW
+off = GPIO.HIGH
+
+spd_ad_1 = 1
+spd_ad_2 = 1
+
 
 _SHOW_IMAGE = False
 
