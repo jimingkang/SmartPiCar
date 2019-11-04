@@ -48,6 +48,13 @@ class DeepPiCar(object):
     def __init__(self):
         """ Init camera and wheels"""
         logging.info('Creating a DeepPiCar...')
+        #jimmy setup motor
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(line_pin_right,GPIO.IN)
+        GPIO.setup(line_pin_middle,GPIO.IN)
+        GPIO.setup(line_pin_left,GPIO.IN)
+        motor.setup()
 
         picar.setup()
 
