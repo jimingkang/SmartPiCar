@@ -78,13 +78,13 @@ class HandCodedLaneFollower(object):
             return frame
 
         new_steering_angle = compute_steering_angle(frame, lane_lines)
-        logging.info('new_steering_angle:')
+        logging.info('new_steering_angle')
         logging.info(new_steering_angle)
         self.curr_steering_angle = stabilize_steering_angle(self.curr_steering_angle, new_steering_angle, len(lane_lines))
 
         if self.car is not None:
             
-            turn.turn_ang(curr_steering_angle)
+            turn.turn_ang(self.curr_steering_angle)
 
             motor.motor_left(status, forward,left_spd*spd_ad_2)
             motor.motor_right(status,backward,right_spd*spd_ad_2)
