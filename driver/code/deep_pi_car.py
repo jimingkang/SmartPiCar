@@ -14,8 +14,8 @@ status     = 1          #Motor rotation
 forward    = 0          #Motor forward
 backward   = 1          #Motor backward
 
-left_spd   = 30        #Speed of the car
-right_spd  = 30        #Speed of the car
+left_spd   = 40        #Speed of the car
+right_spd  = 40        #Speed of the car
 left       = 30         #Motor Left
 right      = 30         #Motor Right
 
@@ -129,9 +129,7 @@ class DeepPiCar(object):
         logging.info('Starting to drive at speed %s...' % speed)
         #self.back_wheels.speed = speed
         i = 0
-        turn.middle()
-        motor.motor_left(status, backward,left_spd)
-        motor.motor_right(status,forward,right_spd)
+        turn.ahead()
         while self.camera.isOpened():
             _, image_lane = self.camera.read()
             image_objs = image_lane.copy()
