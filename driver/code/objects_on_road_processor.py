@@ -11,6 +11,32 @@ _SHOW_IMAGE = False
 #jimmy
 import motor
 import turn
+status     = 1          #Motor rotation
+forward    = 0          #Motor forward
+backward   = 1          #Motor backward
+
+left_spd   = 30        #Speed of the car
+right_spd  = 30         #Speed of the car
+left       = 30         #Motor Left
+right      = 30        #Motor Right
+
+line_pin_right = 35
+line_pin_middle = 36
+line_pin_left = 38
+
+left_R = 15
+left_G = 16
+left_B = 18
+
+right_R = 19
+right_G = 21
+right_B = 22
+
+on  = GPIO.LOW
+off = GPIO.HIGH
+
+spd_ad_1 = 1
+spd_ad_2 = 1
 
 class ObjectsOnRoadProcessor(object):
     """
