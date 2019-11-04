@@ -40,7 +40,7 @@ spd_ad_2 = 1
 
 class DeepPiCar(object):
 
-    __INITIAL_SPEED = 0
+    __INITIAL_SPEED = 10
     __SCREEN_WIDTH = 320
     __SCREEN_HEIGHT = 240
     
