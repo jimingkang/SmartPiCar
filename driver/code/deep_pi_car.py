@@ -5,6 +5,8 @@ import datetime
 from hand_coded_lane_follower import HandCodedLaneFollower
 from objects_on_road_processor import ObjectsOnRoadProcessor
 #jimmy trasnplant from Addeep/server
+import RPi.GPIO as GPIO
+import time
 import motor
 import turn
 _SHOW_IMAGE = True
