@@ -51,21 +51,31 @@ def turn_ang(ang):
         pass
     pwm.set_pwm(2,0,ang)
 
+#Jimmy change, chnnel 0 for front wheel ;1 fro vertical camera servo;2 for horinzotal camera servo 
 def right():
-    pwm.set_pwm(2, 0, turn_right_max)
+    pwm.set_pwm(0, 0, turn_right_max)
 
 def left():
-    pwm.set_pwm(2, 0, turn_left_max)
+    pwm.set_pwm(0, 0, turn_left_max)
 
 def middle():
-    pwm.set_pwm(2, 0, turn_middle)
+    pwm.set_pwm(0, 0, turn_middle)
 
 def ultra_turn(hoz_mid):
     pwm.set_pwm(1, 0, hoz_mid)
 
 def camera_turn(vtr_mid):
-    pwm.set_pwm(0, 0, vtr_mid)
+    pwm.set_pwm(1, 0, vtr_mid)
 
 def ahead():
 	pwm.set_pwm(1, 0, hoz_mid_orig)
 	pwm.set_pwm(0, 0, vtr_mid_orig)
+    
+def main():
+    left()
+    middle()
+    right()
+
+
+if __name__ == '__main__':
+    main()    
