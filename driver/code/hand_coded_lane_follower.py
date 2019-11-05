@@ -84,7 +84,6 @@ class HandCodedLaneFollower(object):
 
         if self.car is not None:
             turn.turn_ang(self.curr_steering_angle)
-            motor.motor_left(status, forward,left_spd*spd_ad_2)
             motor.motor_right(status,backward,right_spd*spd_ad_2)
             
             #self.car.front_wheels.turn(self.curr_steering_angle)
