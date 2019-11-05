@@ -69,3 +69,14 @@ def camera_turn(vtr_mid):
 def ahead():
 	pwm.set_pwm(1, 0, hoz_mid_orig)
 	pwm.set_pwm(0, 0, vtr_mid_orig)
+if __name__ == '__main__':
+    vtr_mid_orig    = num_import_int('E_C1:')
+    hoz_mid_orig    = num_import_int('E_C2:')
+    turn_right_max  = num_import_int('turn_right_max:')
+    turn_left_max   = num_import_int('turn_left_max:')
+    turn_middle     = num_import_int('turn_middle:')
+    left()
+    middle()
+    right()
+    camera_turn()
+    
