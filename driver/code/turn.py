@@ -78,5 +78,4 @@ if __name__ == '__main__':
     left()
     middle()
     right()
-    camera_turn()
     
