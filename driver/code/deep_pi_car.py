@@ -127,10 +127,11 @@ class DeepPiCar(object):
         logging.info('Starting to drive at speed %s...' % speed)
         #self.back_wheels.speed = speed
         i = 0
-        turn.turn_ang(30)
-        motor.motor_right(2, backward,left_spd)
+        
+        
        
         while self.camera.isOpened():
+            motor.motor_left(status, forward,left_spd*spd_ad)
             _, image_lane = self.camera.read()
             image_objs = image_lane.copy()
             i += 1
