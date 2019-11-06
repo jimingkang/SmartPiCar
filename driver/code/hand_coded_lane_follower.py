@@ -58,7 +58,7 @@ class HandCodedLaneFollower(object):
     def __init__(self, car=None):
         logging.info('Creating a HandCodedLaneFollower...')
         self.car = car
-        self.curr_steering_angle = 90
+        #self.curr_steering_angle = 90
         self.spd_ad_1=spd_ad_1
         self.spd_ad_2=spd_ad_2
         #motor.setup()
