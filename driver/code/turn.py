@@ -49,16 +49,16 @@ def turn_ang(ang):
         ang = turn_left_max
     else:
         pass
-    pwm.set_pwm(2,0,ang)
-#jimmy: 0 for vitical camera;1 for ultrasonic horizontal;2 for left motor_A
+    pwm.set_pwm(0,0,ang)
+#jimmy: 0 for left motor_A;1 for ultrasonic horizontal;2 for vitical camera;
 def right():
-    pwm.set_pwm(2, 0, turn_right_max)
+    pwm.set_pwm(0, 0, turn_right_max)
 
 def left():
-    pwm.set_pwm(2, 0, turn_left_max)
+    pwm.set_pwm(0, 0, turn_left_max)
 
 def middle():
-    pwm.set_pwm(2, 0, turn_middle)
+    pwm.set_pwm(0, 0, turn_middle)
 
 def ultra_turn(hoz_mid):
     pwm.set_pwm(1, 0, hoz_mid)
