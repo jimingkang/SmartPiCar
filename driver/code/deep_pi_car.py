@@ -8,7 +8,7 @@ from objects_on_road_processor import ObjectsOnRoadProcessor
 import RPi.GPIO as GPIO
 import time
 import motor
-import turn
+#import turn
 _SHOW_IMAGE = True
 status     = 1          #Motor rotation
 forward    = 1          #Motor forward
@@ -53,7 +53,7 @@ class DeepPiCar(object):
         GPIO.setmode(GPIO.BOARD)
 
         motor.setup()
-        turn.ahead()
+        #turn.ahead()
         picar.setup()
 
         logging.debug('Set up camera')

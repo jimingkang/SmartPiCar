@@ -11,7 +11,6 @@ _SHOW_IMAGE = False
 #jimmy
 import RPi.GPIO as GPIO
 import motor
-import turn
 status     = 1          #Motor rotation
 forward    = 1          #Motor forward
 backward   = 0          #Motor backward
