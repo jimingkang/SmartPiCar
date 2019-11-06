@@ -25,6 +25,10 @@ Dir_backward  = 1
 pwm_A = 0
 pwm_B = 0
 
+status     = 1          #Motor rotation
+forward    = 1          #Motor forward
+backward   = 0          #Motor backward
+
 def setup():#Motor initialization
 	global pwm_A, pwm_B
 	GPIO.setwarnings(False)
@@ -89,4 +93,9 @@ try:
 except KeyboardInterrupt:
 	destroy()
 
+
+if __name__ == '__main__':
+    setup()
+    motor_left(status, forward,30)
+    motor_right(status,backward,30)
 
