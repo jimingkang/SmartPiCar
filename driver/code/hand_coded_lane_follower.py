@@ -186,7 +186,7 @@ def detect_line_segments(cropped_edges):
 
     if line_segments is not None:
         for line_segment in line_segments:
-            #logging.debug('detected line_segment:')
+            logging.debug('detected line_segment:')
             #logging.debug("%s of length %s" % (line_segment, length_of_line_segment(line_segment[0])))
 
     return line_segments
