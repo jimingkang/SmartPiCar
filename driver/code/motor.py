@@ -96,6 +96,7 @@ except KeyboardInterrupt:
 
 if __name__ == '__main__':
     setup()
-    motor_left(status, forward,30)
-    motor_right(status,backward,30)
+    while(1)
+        motor_left(status, forward,30)
+        motor_right(status,backward,30)
 
