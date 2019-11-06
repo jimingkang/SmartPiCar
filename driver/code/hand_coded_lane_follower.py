@@ -61,7 +61,7 @@ class HandCodedLaneFollower(object):
         self.curr_steering_angle = 90
         self.spd_ad_1=spd_ad_1
         self.spd_ad_2=spd_ad_2
-        motor.setup()
+        #motor.setup()
 
     def follow_lane(self, frame):
         # Main entry point of the lane follower
