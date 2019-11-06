@@ -16,8 +16,8 @@ status     = 1          #Motor rotation
 forward    = 1          #Motor forward
 backward   = 0          #Motor backward
 
-left_spd   = 30        #Speed of the car
-right_spd  = 30         #Speed of the car
+left_spd   = 100        #Speed of the car
+right_spd  = 100         #Speed of the car
 left       = 30         #Motor Left
 right      = 30        #Motor Right
 

@@ -14,8 +14,8 @@ status     = 1          #Motor rotation
 forward    = 1          #Motor forward
 backward   = 0          #Motor backward
 
-left_spd   = 40        #Speed of the car
-right_spd  = 40        #Speed of the car
+left_spd   = 100        #Speed of the car
+right_spd  = 100       #Speed of the car
 left       = 30         #Motor Left
 right      = 30         #Motor Right
 
@@ -40,7 +40,7 @@ spd_ad_2 = 1
 
 class DeepPiCar(object):
 
-    __INITIAL_SPEED = 10
+    __INITIAL_SPEED = 100
     __SCREEN_WIDTH = 320
     __SCREEN_HEIGHT = 240
     
@@ -48,7 +48,7 @@ class DeepPiCar(object):
     def __init__(self):
         """ Init camera and wheels"""
         logging.info('Creating a DeepPiCar...')
-        #jimmy setup motor
+        #jimmy setup motor: chnnel 0 for front whell ,1 for( horizontal) ultra,2 for (vitical) camera
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
 
@@ -63,11 +63,11 @@ class DeepPiCar(object):
 
         self.pan_servo = picar.Servo.Servo(1)
         self.pan_servo.offset = -30  # calibrate servo to center
-        self.pan_servo.write(90)
+        #self.pan_servo.write(90)
 
         self.tilt_servo = picar.Servo.Servo(2)
         self.tilt_servo.offset = 20  # calibrate servo to center
-        self.tilt_servo.write(90)
+        #self.tilt_servo.write(90)
 
         self.speed = 5
         logging.debug('Set up back wheels')
@@ -127,9 +127,7 @@ class DeepPiCar(object):
         logging.info('Starting to drive at speed %s...' % speed)
         #self.back_wheels.speed = speed
         i = 0
-        
-        motor.motor_left(status, forward ,left_spd*spd_ad_1)
-        motor.motor_right(status, backward,right_spd*spd_ad_1)
+ 
         while self.camera.isOpened():
             _, image_lane = self.camera.read()
             image_objs = image_lane.copy()
