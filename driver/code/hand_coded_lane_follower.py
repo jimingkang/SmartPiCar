@@ -84,6 +84,8 @@ class HandCodedLaneFollower(object):
         self.curr_steering_angle = stabilize_steering_angle(self.curr_steering_angle, new_steering_angle, len(lane_lines))
 
         if self.car is not None:
+            logging.error('curr_steering_angle:')
+            logging.error(self.curr_steering_angle)
             #turn.turn_ang(self.curr_steering_angle)
             self.car.front_wheels.turn(self.curr_steering_angle)
             motor.motor_left(status, forward,20)
@@ -184,8 +186,8 @@ def detect_line_segments(cropped_edges):
 
     if line_segments is not None:
         for line_segment in line_segments:
-            logging.debug('detected line_segment:')
-            logging.debug("%s of length %s" % (line_segment, length_of_line_segment(line_segment[0])))
+            #logging.debug('detected line_segment:')
+            #logging.debug("%s of length %s" % (line_segment, length_of_line_segment(line_segment[0])))
 
     return line_segments
 
@@ -198,7 +200,7 @@ def average_slope_intercept(frame, line_segments):
     """
     lane_lines = []
     if line_segments is None:
-        logging.info('No line_segment segments detected')
+        #logging.info('No line_segment segments detected')
         return lane_lines
 
     height, width, _ = frame.shape
