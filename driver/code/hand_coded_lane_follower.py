@@ -86,10 +86,9 @@ class HandCodedLaneFollower(object):
         if self.car is not None:
             logging.error('curr_steering_angle:')
             logging.error(self.curr_steering_angle)
-            #turn.turn_ang(self.curr_steering_angle)
-            self.car.front_wheels.turn(self.curr_steering_angle)
+            turn.turn_ang(self.curr_steering_angle)
+            #self.car.front_wheels.turn(self.curr_steering_angle)
             motor.motor_left(status, forward,20)
-            motor.motor_right(status,backward,20)
             
         curr_heading_image = display_heading_line(frame, self.curr_steering_angle)
         show_image("heading", curr_heading_image)
