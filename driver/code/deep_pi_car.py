@@ -49,10 +49,10 @@ class DeepPiCar(object):
         """ Init camera and wheels"""
         logging.info('Creating a DeepPiCar...')
         #jimmy setup motor: chnnel 0 for front whell ,1 for( horizontal) ultra,2 for (vitical) camera
-        GPIO.setwarnings(False)
+        #GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
 
-        motor.setup()
+        #motor.setup()
         #turn.ahead()
         picar.setup()
 
@@ -71,13 +71,13 @@ class DeepPiCar(object):
 
         self.speed = 5
         logging.debug('Set up back wheels')
-        #self.back_wheels = picar.back_wheels.Back_Wheels()
-        #self.back_wheels.speed = 0  # Speed Range is 0 (stop) - 100 (fastest)
+        self.back_wheels = picar.back_wheels.Back_Wheels()
+        self.back_wheels.speed = 0  # Speed Range is 0 (stop) - 100 (fastest)
 
         logging.debug('Set up front wheels')
         self.front_wheels = picar.front_wheels.Front_Wheels()
-        #self.front_wheels.turning_offset = -25  # calibrate servo to center
-        #self.front_wheels.turn(90)  # Steering Range is 45 (left) - 90 (center) - 135 (right)
+        self.front_wheels.turning_offset = -25  # calibrate servo to center
+        self.front_wheels.turn(90)  # Steering Range is 45 (left) - 90 (center) - 135 (right)
 
         self.lane_follower = HandCodedLaneFollower(self)
         self.traffic_sign_processor = ObjectsOnRoadProcessor(self)
@@ -109,7 +109,7 @@ class DeepPiCar(object):
     def cleanup(self):
         """ Reset the hardware"""
         logging.info('Stopping the car, resetting hardware.')
-        #self.back_wheels.speed = 0
+        self.back_wheels.speed = 0
         #self.front_wheels.turn(90)
         self.camera.release()
         self.video_orig.release()
