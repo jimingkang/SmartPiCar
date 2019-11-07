@@ -15,7 +15,7 @@ import ultra
 spd_ad_u   = 1
 Tr = 23
 Ec = 24
-distance_front = 0.8
+distance_front = 0.5
 def num_import_int(initial):        #Call this function to import data from '.txt' file
     with open("set.txt") as f:
         for line in f.readlines():
@@ -91,18 +91,20 @@ class HandCodedLaneFollower(object):
             logging.info('curr_steering_angle:')
             logging.info(self.curr_steering_angle)
             #turn.turn_ang(self.curr_steering_angle-90+370)
-            self.car.front_wheels.turn(self.curr_steering_angle)
+           
             
             dis_front = ultra.checkdist()
             if dis_front < distance_front:
                 self.car.front_wheels.turn(135)
-                motor.motor_left(status, backward,left_spd)
-                motor.motor_right(status,forward,right_spd)
+                motor.motor_left(status, backward,50)
+                motor.motor_right(status,forward,50)
+                self.car.front_wheels.turn(90)
             else:
                 time.sleep(1)
-                self.car.front_wheels.turn(90)
-                motor.motor_left(status, forward,50)
-                motor.motor_right(status, backward,50)
+                
+                 self.car.front_wheels.turn(self.curr_steering_angle)
+                motor.motor_left(status, forward,60)
+                motor.motor_right(status, backward,60)
 
             
         curr_heading_image = display_heading_line(frame, self.curr_steering_angle)
