@@ -10,7 +10,16 @@ import time
 import motor
 import ultra
 #import turn
-
+def num_import_int(initial):        #Call this function to import data from '.txt' file
+    with open("set.txt") as f:
+        for line in f.readlines():
+            if(line.find(initial) == 0):
+                r=line
+    begin=len(list(initial))
+    snum=r[begin:]
+    n=int(snum)
+    return n
+    
 status     = 1          #Motor rotation
 forward    = 1          #Motor forward
 backward   = 0          #Motor backward
