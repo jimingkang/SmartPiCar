@@ -125,7 +125,7 @@ class DeepPiCar(object):
         i = 0
  
         while self.camera.isOpened():
-            dis_front = ultra2.checkdist(Ec)
+            dis_front = ultra.checkdist(Ec)
             if dis_front < distance_front:
                 print('Object in range,please keeep away')
                 motor.motor_left(status, backward,left_spd)
