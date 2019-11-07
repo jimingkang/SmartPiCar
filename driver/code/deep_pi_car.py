@@ -7,36 +7,9 @@ from objects_on_road_processor import ObjectsOnRoadProcessor
 #jimmy trasnplant from Addeep/server
 import RPi.GPIO as GPIO
 import time
-import motor
+
 #import turn
 _SHOW_IMAGE = True
-status     = 1          #Motor rotation
-forward    = 1          #Motor forward
-backward   = 0          #Motor backward
-
-left_spd   = 100        #Speed of the car
-right_spd  = 100       #Speed of the car
-left       = 30         #Motor Left
-right      = 30         #Motor Right
-
-line_pin_right = 35
-line_pin_middle = 36
-line_pin_left = 38
-
-left_R = 15
-left_G = 16
-left_B = 18
-
-right_R = 19
-right_G = 21
-right_B = 22
-
-on  = GPIO.LOW
-off = GPIO.HIGH
-
-spd_ad_1 = 1
-spd_ad_2 = 1
-
 
 class DeepPiCar(object):
 
@@ -52,7 +25,7 @@ class DeepPiCar(object):
         #GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
 
-        motor.setup()
+   
         #turn.ahead()
         picar.setup()
 
@@ -76,8 +49,8 @@ class DeepPiCar(object):
 
         logging.debug('Set up front wheels')
         self.front_wheels = picar.front_wheels.Front_Wheels()
-        #self.front_wheels.turning_offset = -25  # calibrate servo to center
-        #self.front_wheels.turn(90)  # Steering Range is 45 (left) - 90 (center) - 135 (right)
+        self.front_wheels.turning_offset = -25  # calibrate servo to center
+        self.front_wheels.turn(90)  # Steering Range is 45 (left) - 90 (center) - 135 (right)
 
         self.lane_follower = HandCodedLaneFollower(self)
         self.traffic_sign_processor = ObjectsOnRoadProcessor(self)
