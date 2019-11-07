@@ -7,7 +7,7 @@ from objects_on_road_processor import ObjectsOnRoadProcessor
 #jimmy trasnplant from Addeep/server
 import RPi.GPIO as GPIO
 import time
-
+import motor
 #import turn
 _SHOW_IMAGE = True
 
@@ -25,7 +25,7 @@ class DeepPiCar(object):
         #GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
 
-   
+        motor.setup()
         #turn.ahead()
         picar.setup()
 
@@ -110,10 +110,14 @@ class DeepPiCar(object):
             #image_objs = self.process_objects_on_road(image_objs)
             #self.video_objs.write(image_objs)
             #show_image('Detected Objects', image_objs)
-
-            image_lane = self.follow_lane(image_lane)
-            self.video_lane.write(image_lane)
-            show_image('Lane Lines', image_lane)
+            if i%100==0:
+                image_lane = self.follow_lane(image_lane)
+                self.video_lane.write(image_lane)
+                show_image('Lane Lines', image_lane)
+            
+            motor.motor_left(status, forward,30)
+            motor.motor_right(status, backward,30)
+            
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 self.cleanup()
