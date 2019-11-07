@@ -58,7 +58,7 @@ class HandCodedLaneFollower(object):
     def __init__(self, car=None):
         logging.info('Creating a HandCodedLaneFollower...')
         self.car = car
-        self.curr_steering_angle = 0
+        self.curr_steering_angle = 90
         self.spd_ad_1=spd_ad_1
         self.spd_ad_2=spd_ad_2
         motor.setup()
@@ -87,7 +87,7 @@ class HandCodedLaneFollower(object):
             logging.error('curr_steering_angle:')
             logging.error(self.curr_steering_angle)
             #turn.turn_ang(self.curr_steering_angle-90)
-            self.car.front_wheels.turn(self.curr_steering_angle-90)
+            self.car.front_wheels.turn(self.curr_steering_angle)
             motor.motor_left(status, forward,100)
             motor.motor_right(status, backward,100)
             
