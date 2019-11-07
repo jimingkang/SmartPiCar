@@ -147,8 +147,8 @@ class DeepPiCar(object):
                 motor.motor_right(status,forward,right_spd)
                 self.front_wheels.turn(180-(10+90))
             else:
-                motor.motor_left(status, forward,30)
-                motor.motor_right(status, backward,30)
+                motor.motor_left(status, forward,80)
+                motor.motor_right(status, backward,80)
             
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
