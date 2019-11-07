@@ -26,8 +26,8 @@ pwm_A = 0
 pwm_B = 0
 
 status     = 1          #Motor rotation
-forward    = 0          #Motor forward
-backward   = 1          #Motor backward
+forward    = 1          #Motor forward
+backward   = 0          #Motor backward
 
 def setup():#Motor initialization
 	global pwm_A, pwm_B
@@ -97,6 +97,6 @@ except KeyboardInterrupt:
 if __name__ == '__main__':
     setup()
     while(True):
-        motor_left(status, forward,50)
-        motor_right(status,backward,50)
+        motor_left(status, forward,100)
+        motor_right(status,backward,100)
 
