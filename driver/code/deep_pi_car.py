@@ -8,11 +8,23 @@ from objects_on_road_processor import ObjectsOnRoadProcessor
 import RPi.GPIO as GPIO
 import time
 import motor
+import ultra
 #import turn
-_SHOW_IMAGE = True
+
 status     = 1          #Motor rotation
 forward    = 1          #Motor forward
 backward   = 0          #Motor backward
+left_spd   = num_import_int('E_M1:')         #Speed of the car
+right_spd  = num_import_int('E_M2:')         #Speed of the car
+left       = num_import_int('E_T1:')         #Motor Left
+right      = num_import_int('E_T2:')         #Motor Right
+
+spd_ad_u   = 1
+Tr = 23
+Ec = 24
+distance_front = 0.1
+
+_SHOW_IMAGE = True
 class DeepPiCar(object):
 
     __INITIAL_SPEED = 100
@@ -104,6 +116,13 @@ class DeepPiCar(object):
         i = 0
  
         while self.camera.isOpened():
+            dis_front = ultra2.checkdist(Ec)
+            if dis_front < distance_front:
+                print('Object in range,please keeep away')
+                motor.motor_left(status, backward,left_spd)
+                motor.motor_right(status,forward,right_spd)
+                break
+                
             _, image_lane = self.camera.read()
             image_objs = image_lane.copy()
             i += 1
