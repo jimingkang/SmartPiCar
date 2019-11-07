@@ -10,7 +10,8 @@ import RPi.GPIO as GPIO
 import time
 import motor
 import turn
-import led
+
+import ultra
 
 def num_import_int(initial):        #Call this function to import data from '.txt' file
     with open("set.txt") as f:
