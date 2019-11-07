@@ -50,7 +50,7 @@ spd_ad_1 = 1
 spd_ad_2 = 1
 
 
-_SHOW_IMAGE = False
+_SHOW_IMAGE = True
 
 
 class HandCodedLaneFollower(object):
@@ -184,9 +184,9 @@ def detect_line_segments(cropped_edges):
     line_segments = cv2.HoughLinesP(cropped_edges, rho, angle, min_threshold, np.array([]), minLineLength=8,
                                     maxLineGap=4)
 
-    if line_segments is not None:
-        for line_segment in line_segments:
-            logging.debug('detected line_segment:')
+    #if line_segments is not None:
+    #    for line_segment in line_segments:
+    #        logging.debug('detected line_segment:')
             #logging.debug("%s of length %s" % (line_segment, length_of_line_segment(line_segment[0])))
 
     return line_segments
@@ -234,7 +234,7 @@ def average_slope_intercept(frame, line_segments):
     if len(right_fit) > 0:
         lane_lines.append(make_points(frame, right_fit_average))
 
-    logging.debug('lane lines: %s' % lane_lines)  # [[[316, 720, 484, 432]], [[1009, 720, 718, 432]]]
+    #logging.debug('lane lines: %s' % lane_lines)  # [[[316, 720, 484, 432]], [[1009, 720, 718, 432]]]
 
     return lane_lines
 
