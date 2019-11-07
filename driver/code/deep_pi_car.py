@@ -131,28 +131,28 @@ class DeepPiCar(object):
             if dis_front < distance_front:
                 motor.motor_left(status, backward,left_spd)
                 motor.motor_right(status,forward,right_spd)
-                break
+            else:
                 
-            _, image_lane = self.camera.read()
-            image_objs = image_lane.copy()
-            i += 1
-            self.video_orig.write(image_lane)
+                _, image_lane = self.camera.read()
+                image_objs = image_lane.copy()
+                i += 1
+                self.video_orig.write(image_lane)
 
-            #image_objs = self.process_objects_on_road(image_objs)
-            #self.video_objs.write(image_objs)
-            #show_image('Detected Objects', image_objs)
-            if i%100==0:
-                image_lane = self.follow_lane(image_lane)
-                self.video_lane.write(image_lane)
-                show_image('Lane Lines', image_lane)
-            
-            motor.motor_left(status, forward,30)
-            motor.motor_right(status, backward,30)
-            
+                #image_objs = self.process_objects_on_road(image_objs)
+                #self.video_objs.write(image_objs)
+                #show_image('Detected Objects', image_objs)
+                if i%100==0:
+                    image_lane = self.follow_lane(image_lane)
+                    self.video_lane.write(image_lane)
+                    show_image('Lane Lines', image_lane)
+                
+                motor.motor_left(status, forward,30)
+                motor.motor_right(status, backward,30)
+                
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                self.cleanup()
-                break
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    self.cleanup()
+                    break
 
     def process_objects_on_road(self, image):
         image = self.traffic_sign_processor.process_objects_on_road(image)
