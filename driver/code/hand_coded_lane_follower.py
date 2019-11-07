@@ -50,7 +50,7 @@ spd_ad_1 = 1
 spd_ad_2 = 1
 
 
-_SHOW_IMAGE = True
+_SHOW_IMAGE = False
 
 
 class HandCodedLaneFollower(object):
@@ -88,8 +88,8 @@ class HandCodedLaneFollower(object):
             logging.error(self.curr_steering_angle)
             #turn.turn_ang(self.curr_steering_angle-90)
             self.car.front_wheels.turn(self.curr_steering_angle)
-            motor.motor_left(status, forward,50)
-            motor.motor_right(status, backward,50)
+            motor.motor_left(status, forward,30)
+            motor.motor_right(status, backward,30)
             
         curr_heading_image = display_heading_line(frame, self.curr_steering_angle)
         show_image("heading", curr_heading_image)
@@ -214,7 +214,7 @@ def average_slope_intercept(frame, line_segments):
     for line_segment in line_segments:
         for x1, y1, x2, y2 in line_segment:
             if x1 == x2:
-                logging.info('skipping vertical line segment (slope=inf): %s' % line_segment)
+                #logging.info('skipping vertical line segment (slope=inf): %s' % line_segment)
                 continue
             fit = np.polyfit((x1, x2), (y1, y2), 1)
             slope = fit[0]
