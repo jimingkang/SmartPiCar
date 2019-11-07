@@ -10,7 +10,9 @@ import time
 import motor
 #import turn
 _SHOW_IMAGE = True
-
+status     = 1          #Motor rotation
+forward    = 1          #Motor forward
+backward   = 0          #Motor backward
 class DeepPiCar(object):
 
     __INITIAL_SPEED = 100
