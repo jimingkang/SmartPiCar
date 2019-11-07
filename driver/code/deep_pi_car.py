@@ -147,7 +147,7 @@ class DeepPiCar(object):
                 motor.motor_right(status,forward,right_spd)
                 self.front_wheels.turn(90)
             else:
-                sleep(1)
+                time.sleep(1000)
                 motor.motor_left(status, forward,50)
                 motor.motor_right(status, backward,50)
             
