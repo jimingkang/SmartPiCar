@@ -31,7 +31,7 @@ right      = num_import_int('E_T2:')         #Motor Right
 spd_ad_u   = 1
 Tr = 23
 Ec = 24
-distance_front = 0.3
+distance_front = 0.8
 
 _SHOW_IMAGE = True
 class DeepPiCar(object):
@@ -142,13 +142,13 @@ class DeepPiCar(object):
                 
             dis_front = ultra.checkdist()
             if dis_front < distance_front:
-                self.front_wheels.turn(10+90)
+                self.front_wheels.turn(20+90)
                 motor.motor_left(status, backward,left_spd)
                 motor.motor_right(status,forward,right_spd)
-                self.front_wheels.turn(180-(10+90))
+                self.front_wheels.turn(90)
             else:
-                motor.motor_left(status, forward,80)
-                motor.motor_right(status, backward,80)
+                motor.motor_left(status, forward,50)
+                motor.motor_right(status, backward,50)
             
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
