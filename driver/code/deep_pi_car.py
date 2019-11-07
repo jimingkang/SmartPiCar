@@ -142,12 +142,13 @@ class DeepPiCar(object):
                 
             dis_front = ultra.checkdist()
             if dis_front < distance_front:
-                self.front_wheels.turn(45)
+                self.front_wheels.turn(135)
                 motor.motor_left(status, backward,left_spd)
                 motor.motor_right(status,forward,right_spd)
-                self.front_wheels.turn(90)
+             
             else:
                 #time.sleep(1)
+                self.front_wheels.turn(90)
                 motor.motor_left(status, forward,50)
                 motor.motor_right(status, backward,50)
             
