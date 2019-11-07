@@ -31,7 +31,7 @@ right      = num_import_int('E_T2:')         #Motor Right
 spd_ad_u   = 1
 Tr = 23
 Ec = 24
-distance_front = 0.1
+distance_front = 0.3
 
 _SHOW_IMAGE = True
 class DeepPiCar(object):
@@ -129,7 +129,6 @@ class DeepPiCar(object):
             logging.info("jimmy test logging.info(dis_front)")
             logging.info(dis_front)
             if dis_front < distance_front:
-                print('Object in range,please keeep away')
                 motor.motor_left(status, backward,left_spd)
                 motor.motor_right(status,forward,right_spd)
                 break
