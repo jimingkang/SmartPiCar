@@ -26,8 +26,8 @@ pwm_A = 0
 pwm_B = 0
 
 status     = 1          #Motor rotation
-forward    = 1          #Motor forward
-backward   = 0          #Motor backward
+forward    = 0          #Motor forward
+backward   = 1          #Motor backward
 
 def setup():#Motor initialization
 	global pwm_A, pwm_B
