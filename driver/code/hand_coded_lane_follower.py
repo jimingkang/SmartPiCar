@@ -94,7 +94,7 @@ class HandCodedLaneFollower(object):
            
             
             dis_front = ultra.checkdist()
-            while(dis_front < distance_front):
+            if dis_front < distance_front:
                 if self.curr_steering_angle<90:
                     self.car.front_wheels.turn_left()
                 else:
