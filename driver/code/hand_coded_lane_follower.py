@@ -107,8 +107,8 @@ class HandCodedLaneFollower(object):
                 time.sleep(1)
                 self.car.front_wheels.turn(self.curr_steering_angle)
                 self.car.front_wheels.turn(self.curr_steering_angle)
-                motor.motor_left(status, forward,50)
-                motor.motor_right(status, backward,50)
+                motor.motor_left(status, forward,60)
+                motor.motor_right(status, backward,60)
 
             
         curr_heading_image = display_heading_line(frame, self.curr_steering_angle)
