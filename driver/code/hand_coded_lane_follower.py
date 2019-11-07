@@ -96,14 +96,14 @@ class HandCodedLaneFollower(object):
             dis_front = ultra.checkdist()
             if dis_front < distance_front:
                 self.car.front_wheels.turn(135)
-                motor.motor_left(status, backward,50)
-                motor.motor_right(status,forward,50)
-                self.car.front_wheels.turn(90)
+                motor.motor_left(status, backward,30)
+                motor.motor_right(status,forward,30)
+                #self.car.front_wheels.turn(90)
             else:
                 time.sleep(1)
                 self.car.front_wheels.turn(self.curr_steering_angle)
-                motor.motor_left(status, forward,60)
-                motor.motor_right(status, backward,60)
+                motor.motor_left(status, forward,50)
+                motor.motor_right(status, backward,50)
 
             
         curr_heading_image = display_heading_line(frame, self.curr_steering_angle)
