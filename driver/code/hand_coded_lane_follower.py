@@ -10,9 +10,12 @@ import RPi.GPIO as GPIO
 import time
 import motor
 import turn
-
 import ultra
 
+spd_ad_u   = 1
+Tr = 23
+Ec = 24
+distance_front = 0.8
 def num_import_int(initial):        #Call this function to import data from '.txt' file
     with open("set.txt") as f:
         for line in f.readlines():

@@ -8,7 +8,7 @@ from objects_on_road_processor import ObjectsOnRoadProcessor
 import RPi.GPIO as GPIO
 import time
 import motor
-import ultra
+
 #import turn
 def num_import_int(initial):        #Call this function to import data from '.txt' file
     with open("set.txt") as f:
@@ -28,10 +28,7 @@ right_spd  = num_import_int('E_M2:')         #Speed of the car
 left       = num_import_int('E_T1:')         #Motor Left
 right      = num_import_int('E_T2:')         #Motor Right
 
-spd_ad_u   = 1
-Tr = 23
-Ec = 24
-distance_front = 0.8
+
 
 _SHOW_IMAGE = True
 class DeepPiCar(object):
