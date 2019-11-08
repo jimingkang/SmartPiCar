@@ -21,8 +21,8 @@ def num_import_int(initial):        #Call this function to import data from '.tx
     return n
     
 status     = 1          #Motor rotation
-forward    = 0          #Motor forward
-backward   = 1          #Motor backward
+forward    = 1          #Motor forward
+backward   = 0          #Motor backward
 left_spd   = num_import_int('E_M1:')         #Speed of the car
 right_spd  = num_import_int('E_M2:')         #Speed of the car
 left       = num_import_int('E_T1:')         #Motor Left
@@ -62,7 +62,7 @@ class DeepPiCar(object):
         self.tilt_servo.offset = 20  # calibrate servo to center
         #self.tilt_servo.write(90)
 
-        self.speed = 5
+        
         logging.debug('Set up back wheels')
         self.back_wheels = picar.back_wheels.Back_Wheels()
         self.back_wheels.speed = 100  # Speed Range is 0 (stop) - 100 (fastest)
