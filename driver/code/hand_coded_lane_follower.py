@@ -45,7 +45,7 @@ class HandCodedLaneFollower(object):
 # Frame processing steps
 ############################
 def detect_lane(frame):
-    l#ogging.debug('detecting lane lines...')
+    #logging.debug('detecting lane lines...')
 
     edges = detect_edges(frame)
     show_image('edges', edges)
