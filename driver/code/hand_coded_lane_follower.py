@@ -35,6 +35,8 @@ class HandCodedLaneFollower(object):
 
         if self.car is not None:
             self.car.front_wheels.turn(self.curr_steering_angle)
+            self.car.back_wheels.forward()
+            self.car.back_wheels.backward()
         curr_heading_image = display_heading_line(frame, self.curr_steering_angle)
         show_image("heading", curr_heading_image)
 
