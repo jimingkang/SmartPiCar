@@ -33,7 +33,7 @@ right      = num_import_int('E_T2:')         #Motor Right
 _SHOW_IMAGE = True
 class DeepPiCar(object):
 
-    __INITIAL_SPEED = 20
+    __INITIAL_SPEED = 50
     __SCREEN_WIDTH = 320
     __SCREEN_HEIGHT = 240
     
