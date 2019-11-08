@@ -66,7 +66,7 @@ class DeepPiCar(object):
         
         logging.debug('Set up back wheels')
         self.back_wheels = picar.back_wheels.Back_Wheels()
-        self.back_wheels.speed = 100  # Speed Range is 0 (stop) - 100 (fastest)
+        self.back_wheels.speed = 20  # Speed Range is 0 (stop) - 100 (fastest)
         self.back_wheels.forward()
         self.back_wheels.backward()
 
