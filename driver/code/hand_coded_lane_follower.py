@@ -1,58 +1,9 @@
-
 import cv2
 import numpy as np
 import logging
 import math
 import datetime
 import sys
-#jimmy
-import RPi.GPIO as GPIO
-import time
-import motor
-import turn
-import ultra
-
-spd_ad_u   = 1
-Tr = 23
-Ec = 24
-distance_front = 0.5
-def num_import_int(initial):        #Call this function to import data from '.txt' file
-    with open("set.txt") as f:
-        for line in f.readlines():
-            if(line.find(initial) == 0):
-                r=line
-    begin=len(list(initial))
-    snum=r[begin:]
-    n=int(snum)
-    return n
-
-status     = 1          #Motor rotation
-forward    = 1          #Motor forward
-backward   = 0          #Motor backward
-
-left_spd   = 100        #Speed of the car
-right_spd  = 100         #Speed of the car
-left       = 30         #Motor Left
-right      = 30        #Motor Right
-
-line_pin_right = 35
-line_pin_middle = 36
-line_pin_left = 38
-
-left_R = 15
-left_G = 16
-left_B = 18
-
-right_R = 19
-right_G = 21
-right_B = 22
-
-on  = GPIO.LOW
-off = GPIO.HIGH
-
-spd_ad_1 = 1
-spd_ad_2 = 1
-
 
 _SHOW_IMAGE = False
 
@@ -63,9 +14,6 @@ class HandCodedLaneFollower(object):
         logging.info('Creating a HandCodedLaneFollower...')
         self.car = car
         self.curr_steering_angle = 90
-        self.spd_ad_1=spd_ad_1
-        self.spd_ad_2=spd_ad_2
-        motor.setup()
 
     def follow_lane(self, frame):
         # Main entry point of the lane follower
@@ -83,34 +31,10 @@ class HandCodedLaneFollower(object):
             return frame
 
         new_steering_angle = compute_steering_angle(frame, lane_lines)
-        logging.info('new_steering_angle:')
-        logging.info(new_steering_angle)
         self.curr_steering_angle = stabilize_steering_angle(self.curr_steering_angle, new_steering_angle, len(lane_lines))
 
         if self.car is not None:
-            logging.info('curr_steering_angle:')
-            logging.info(self.curr_steering_angle)
-            #turn.turn_ang(self.curr_steering_angle-90+370)
-           
-            
-            dis_front = ultra.checkdist()
-            if dis_front < distance_front:
-                if self.curr_steering_angle<90:
-                    self.car.front_wheels.turn_left()
-                else:
-                    self.car.front_wheels.turn_right()
-                
-                motor.motor_left(status, backward,80)
-                motor.motor_right(status,forward,80)
-                self.car.front_wheels.turn_straight()
-            else:
-                time.sleep(1)
-                self.car.front_wheels.turn(self.curr_steering_angle)
-                self.car.front_wheels.turn(self.curr_steering_angle)
-                motor.motor_left(status, forward,60)
-                motor.motor_right(status, backward,60)
-
-            
+            self.car.front_wheels.turn(self.curr_steering_angle)
         curr_heading_image = display_heading_line(frame, self.curr_steering_angle)
         show_image("heading", curr_heading_image)
 
@@ -204,10 +128,10 @@ def detect_line_segments(cropped_edges):
     line_segments = cv2.HoughLinesP(cropped_edges, rho, angle, min_threshold, np.array([]), minLineLength=8,
                                     maxLineGap=4)
 
-    #if line_segments is not None:
-    #    for line_segment in line_segments:
-    #        logging.debug('detected line_segment:')
-            #logging.debug("%s of length %s" % (line_segment, length_of_line_segment(line_segment[0])))
+    if line_segments is not None:
+        for line_segment in line_segments:
+            logging.debug('detected line_segment:')
+            logging.debug("%s of length %s" % (line_segment, length_of_line_segment(line_segment[0])))
 
     return line_segments
 
@@ -220,7 +144,7 @@ def average_slope_intercept(frame, line_segments):
     """
     lane_lines = []
     if line_segments is None:
-        #logging.info('No line_segment segments detected')
+        logging.info('No line_segment segments detected')
         return lane_lines
 
     height, width, _ = frame.shape
@@ -234,7 +158,7 @@ def average_slope_intercept(frame, line_segments):
     for line_segment in line_segments:
         for x1, y1, x2, y2 in line_segment:
             if x1 == x2:
-                #logging.info('skipping vertical line segment (slope=inf): %s' % line_segment)
+                logging.info('skipping vertical line segment (slope=inf): %s' % line_segment)
                 continue
             fit = np.polyfit((x1, x2), (y1, y2), 1)
             slope = fit[0]
@@ -254,7 +178,7 @@ def average_slope_intercept(frame, line_segments):
     if len(right_fit) > 0:
         lane_lines.append(make_points(frame, right_fit_average))
 
-    #logging.debug('lane lines: %s' % lane_lines)  # [[[316, 720, 484, 432]], [[1009, 720, 718, 432]]]
+    logging.debug('lane lines: %s' % lane_lines)  # [[[316, 720, 484, 432]], [[1009, 720, 718, 432]]]
 
     return lane_lines
 
