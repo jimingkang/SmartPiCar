@@ -8,35 +8,6 @@ from traffic_objects import *
 
 _SHOW_IMAGE = False
 
-#jimmy
-import RPi.GPIO as GPIO
-import motor
-status     = 1          #Motor rotation
-forward    = 1          #Motor forward
-backward   = 0          #Motor backward
-
-left_spd   = 100        #Speed of the car
-right_spd  = 100         #Speed of the car
-left       = 30         #Motor Left
-right      = 30        #Motor Right
-
-line_pin_right = 35
-line_pin_middle = 36
-line_pin_left = 38
-
-left_R = 15
-left_G = 16
-left_B = 18
-
-right_R = 19
-right_G = 21
-right_B = 22
-
-on  = GPIO.LOW
-off = GPIO.HIGH
-
-spd_ad_1 = 1
-spd_ad_2 = 1
 
 class ObjectsOnRoadProcessor(object):
     """
@@ -96,10 +67,10 @@ class ObjectsOnRoadProcessor(object):
 
     def process_objects_on_road(self, frame):
         # Main entry point of the Road Object Handler
-        logging.debug('Processing Road objects.................................')
+        logging.debug('Processing objects.................................')
         objects, final_frame = self.detect_objects(frame)
         self.control_car(objects)
-        logging.debug('Processing Road objects END..............................')
+        logging.debug('Processing objects END..............................')
 
         return final_frame
 
@@ -146,9 +117,7 @@ class ObjectsOnRoadProcessor(object):
         self.speed = speed
         if self.car is not None:
             logging.debug("Actually setting car speed to %d" % speed)
-            self.car.speed = speed
-            motor.motor_left(status, forward,speed*spd_ad_2)
-            motor.motor_right(status,backward,speed*spd_ad_2)
+            self.car.back_wheels.speed = speed
 
 
 
