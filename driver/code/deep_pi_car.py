@@ -33,7 +33,7 @@ right      = num_import_int('E_T2:')         #Motor Right
 _SHOW_IMAGE = True
 class DeepPiCar(object):
 
-    __INITIAL_SPEED = 50
+    __INITIAL_SPEED = 40
     __SCREEN_WIDTH = 320
     __SCREEN_HEIGHT = 240
     
@@ -66,7 +66,7 @@ class DeepPiCar(object):
         
         logging.debug('Set up back wheels')
         self.back_wheels = picar.back_wheels.Back_Wheels()
-        self.back_wheels.speed = 50  # Speed Range is 0 (stop) - 100 (fastest)
+        self.back_wheels.speed = 30  # Speed Range is 0 (stop) - 100 (fastest)
         self.back_wheels.forward()
         self.back_wheels.backward()
 
@@ -166,7 +166,7 @@ def show_image(title, frame, show=_SHOW_IMAGE):
 
 def main():
     with DeepPiCar() as car:
-        car.drive(50)
+        car.drive(30)
 
 
 if __name__ == '__main__':
