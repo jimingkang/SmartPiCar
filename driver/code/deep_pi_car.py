@@ -8,6 +8,8 @@ from objects_on_road_processor import ObjectsOnRoadProcessor
 import RPi.GPIO as GPIO
 import time
 import motor
+import turn
+
 
 #import turn
 def num_import_int(initial):        #Call this function to import data from '.txt' file
@@ -48,7 +50,7 @@ class DeepPiCar(object):
        
         #turn.ahead()
         picar.setup()
-
+        #linsensorsetup()
 
         logging.debug('Set up camera')
         self.camera = cv2.VideoCapture(-1)
@@ -65,10 +67,10 @@ class DeepPiCar(object):
 
         
         logging.debug('Set up back wheels')
-        self.back_wheels = picar.back_wheels.Back_Wheels()
-        self.back_wheels.speed = 30  # Speed Range is 0 (stop) - 100 (fastest)
-        self.back_wheels.forward()
-        self.back_wheels.backward()
+        #self.back_wheels = picar.back_wheels.Back_Wheels()
+        #self.back_wheels.speed = 30  # Speed Range is 0 (stop) - 100 (fastest)
+        #self.back_wheels.forward()
+        #self.back_wheels.backward()
 
         logging.debug('Set up front wheels')
         self.front_wheels = picar.front_wheels.Front_Wheels()
@@ -81,9 +83,9 @@ class DeepPiCar(object):
 
         self.fourcc = cv2.VideoWriter_fourcc(*'XVID')
         datestr = datetime.datetime.now().strftime("%y%m%d_%H%M%S")
-        self.video_orig = self.create_video_recorder('../data/tmp/car_video%s.avi' % datestr)
-        self.video_lane = self.create_video_recorder('../data/tmp/car_video_lane%s.avi' % datestr)
-        self.video_objs = self.create_video_recorder('../data/tmp/car_video_objs%s.avi' % datestr)
+        #self.video_orig = self.create_video_recorder('/home/pi/data/tmp/car_video%s.avi' % datestr)
+        self.video_lane = self.create_video_recorder('/home/pi/data/tmp/car_video_lane%s.avi' % datestr)
+        #self.video_objs = self.create_video_recorder('/home/pi/data/tmp/car_video_objs%s.avi' % datestr)
 
         logging.info('Created a DeepPiCar')
 
@@ -105,12 +107,12 @@ class DeepPiCar(object):
     def cleanup(self):
         """ Reset the hardware"""
         logging.info('Stopping the car, resetting hardware.')
-        self.back_wheels.speed = 0
+        #self.back_wheels.speed = 0
         self.front_wheels.turn(90)
         self.camera.release()
-        self.video_orig.release()
+        #self.video_orig.release()
         self.video_lane.release()
-        self.video_objs.release()
+        #self.video_objs.release()
         cv2.destroyAllWindows()
 
     def drive(self, speed=__INITIAL_SPEED):
@@ -123,22 +125,22 @@ class DeepPiCar(object):
         logging.info('Starting to drive at speed %s...' % speed)
         #self.back_wheels.speed = speed
         i = 0
- 
+        turn.ahead()
         while self.camera.isOpened():
             
                 
             _, image_lane = self.camera.read()
             image_objs = image_lane.copy()
             i += 1
-            self.video_orig.write(image_lane)
+            #self.video_orig.write(image_lane)
 
-            image_objs = self.process_objects_on_road(image_objs)
-            self.video_objs.write(image_objs)
-            show_image('Detected Objects', image_objs)
+            objects,image_objs = self.traffic_sign_processor.detect_objects(image_objs)
+            #self.video_objs.write(image_objs)
+            #show_image('Detected Objects', image_objs)
          
-            image_lane = self.follow_lane(image_lane)
-            self.video_lane.write(image_lane)
-            show_image('Lane Lines', image_lane)
+            image_lane = self.follow_lane(image_objs)
+            #self.video_lane.write(image_lane)
+            #show_image('Lane Lines', image_lane)
                 
             
             

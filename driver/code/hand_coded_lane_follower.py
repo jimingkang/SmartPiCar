@@ -4,9 +4,48 @@ import logging
 import math
 import datetime
 import sys
-
+import motor
+import turn
+import RPi.GPIO as GPIO
+import ultra_dp 
 _SHOW_IMAGE = False
 
+spd_ad     = 1          #Speed Adjustment
+pwm0       = 0          #Camera direction 
+pwm1       = 1          #Ultrasonic direction
+status     = 1          #Motor rotation
+forward    = 0          #Motor forward
+backward   = 1          #Motor backward
+
+left_spd   = 70         #Speed of the car
+right_spd  = 70         #Speed of the car
+left       = 100         #Motor Left
+right      = 100         #Motor Right
+
+dis_dir = []
+distance_stay  = 0.4
+distance_range = 2
+led_status = 0
+old_steering_angle=90
+
+#line_pin_right = 19       # BCM  19 16 20
+#line_pin_middle = 16
+#line_pin_left = 20   
+line_pin_right = 35       # BORAD 35 36 38
+line_pin_middle = 36
+line_pin_left = 38   
+right_spd=70
+def linsensorsetup():
+    GPIO.setwarnings(False)
+    #GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(line_pin_right,GPIO.IN)
+    GPIO.setup(line_pin_middle,GPIO.IN)
+    GPIO.setup(line_pin_left,GPIO.IN)
+    try:
+        motor.setup()
+    except:
+        pass
 
 class HandCodedLaneFollower(object):
 
@@ -14,6 +53,7 @@ class HandCodedLaneFollower(object):
         logging.info('Creating a HandCodedLaneFollower...')
         self.car = car
         self.curr_steering_angle = 90
+        linsensorsetup()
 
     def follow_lane(self, frame):
         # Main entry point of the lane follower
@@ -25,17 +65,36 @@ class HandCodedLaneFollower(object):
         return final_frame
 
     def steer(self, frame, lane_lines):
+        global old_steering_angle
+        turn.center()
         logging.debug('steering...')
+        status_right = GPIO.input(line_pin_right)
+        status_middle = GPIO.input(line_pin_middle)
+        status_left = GPIO.input(line_pin_left)
         if len(lane_lines) == 0:
-            #logging.error('No lane lines detected, nothing to do.')
+            turn.turn_ang(abs(90-int(old_steering_angle)))
+            #ultra_dp.loop(distance_stay,distance_range)
+            motor.motor_right(status,backward,right_spd)
             return frame
-
+            
+        
         new_steering_angle = compute_steering_angle(frame, lane_lines)
+        old_steering_angle=new_steering_angle
         self.curr_steering_angle = stabilize_steering_angle(self.curr_steering_angle, new_steering_angle, len(lane_lines))
 
         if self.car is not None:
             self.car.front_wheels.turn(self.curr_steering_angle)
-
+            motor.motor_right(status,forward,right_spd)
+            
+            if status_middle == 1 and status_right == 1 and status_left == 1:
+                #turn.turn_ang(335+(90-int(old_steering_angle)))
+                turn.center()
+                motor.motor_right(status,backward,right_spd)
+                
+                motor.motor_right(status,forward,right_spd)
+                #self.car.back_wheels.backward()
+            
+            
         curr_heading_image = display_heading_line(frame, self.curr_steering_angle)
         show_image("heading", curr_heading_image)
 

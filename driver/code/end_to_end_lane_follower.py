@@ -4,20 +4,45 @@ import logging
 import math
 from keras.models import load_model
 from hand_coded_lane_follower import HandCodedLaneFollower
+import motor
+import RPi.GPIO as GPIO
+from deep_pi_car import DeepPiCar
 
 _SHOW_IMAGE = False
 
 
 class EndToEndLaneFollower(object):
+    def setup(self):
+        GPIO.setwarnings(False)
+        #GPIO.setmode(GPIO.BCM)
+        GPIO.setmode(GPIO.BOARD)
+        #GPIO.setup(line_pin_right,GPIO.IN)
+        #GPIO.setup(line_pin_middle,GPIO.IN)
+        #GPIO.setup(line_pin_left,GPIO.IN)
+        try:
+            motor.setup()
+        except:
+            pass
 
     def __init__(self,
                  car=None,
                  model_path='/home/pi/DeepPiCar/models/lane_navigation/data/model_result/lane_navigation.h5'):
         logging.info('Creating a EndToEndLaneFollower...')
+        self.spd_ad     = 1          #Speed Adjustment
+        self.pwm0       = 0          #Camera direction 
+        self.pwm1       = 1          #Ultrasonic direction
+        self.status     = 1          #Motor rotation
+        self.forward    = 0          #Motor forward
+        self.backward   = 1          #Motor backward
+        self.left_spd   = 70         #Speed of the car
+        self.right_spd  = 70         #Speed of the car
+        self.left       = 100         #Motor Left
+        self.right      = 100         #Motor Right
 
         self.car = car
         self.curr_steering_angle = 90
         self.model = load_model(model_path)
+        self.setup()
 
     def follow_lane(self, frame):
         # Main entry point of the lane follower
@@ -28,6 +53,7 @@ class EndToEndLaneFollower(object):
 
         if self.car is not None:
             self.car.front_wheels.turn(self.curr_steering_angle)
+            motor.motor_right(self.status,self.forward,self.right_spd)
         final_frame = display_heading_line(frame, self.curr_steering_angle)
 
         return final_frame
@@ -95,8 +121,8 @@ def test_photo(file):
     cv2.destroyAllWindows()
 
 
-def test_video(video_file):
-    end_to_end_lane_follower = EndToEndLaneFollower()
+def test_video(video_file,car):
+    end_to_end_lane_follower = EndToEndLaneFollower(car)
     hand_coded_lane_follower = HandCodedLaneFollower()
     cap = cv2.VideoCapture(video_file + '.avi')
 
@@ -135,9 +161,14 @@ def test_video(video_file):
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
+    with DeepPiCar() as car:
+        #car.drive(40)
+        test_video('/home/pi/DeepPiCar/models/lane_navigation/data/images/video01',car)
+      
 
-    test_video('/home/pi/SmartPiCar/driver/data/tmp/car_video_lane191202_090930')
-    #test_video('/home/pi/DeepPiCar/models/lane_navigation/data/images/video01')
-    test_photo('/home/pi/DeepPiCar/models/lane_navigation/data/images/video01_100_084.png')
+
+    #test_video('/home/pi/SmartPiCar/driver/data/tmp/car_video_lane191202_090930')
+    
+    #test_photo('/home/pi/DeepPiCar/models/lane_navigation/data/images/video01_100_084.png')
     # test_photo(sys.argv[1])
     # test_video(sys.argv[1])

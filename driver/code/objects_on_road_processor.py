@@ -5,6 +5,8 @@ import time
 import edgetpu.detection.engine
 from PIL import Image
 from traffic_objects import *
+import RPi.GPIO as GPIO
+import ultra_dp
 
 _SHOW_IMAGE = False
 
@@ -86,11 +88,14 @@ class ObjectsOnRoadProcessor(object):
             obj_label = self.labels[obj.label_id]
             processor = self.traffic_objects[obj.label_id]
             if processor.is_close_by(obj, self.height):
-                processor.set_car_state(car_state)
+                #processor.set_car_state(car_state)
+                motor.motor_right(status,forward,20)
+                ultra_dp.loop(distance_stay,distance_range)
             else:
                 logging.debug("[%s] object detected, but it is too far, ignoring. " % obj_label)
             if obj_label == 'Stop':
-                contain_stop_sign = True
+                self.car.front_wheels.turn(self.curr_steering_angle)
+                motor.motor_right(status,forward,0)
 
         if not contain_stop_sign:
             self.traffic_objects[5].clear()
